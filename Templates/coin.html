@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset = "utf-8"/>
+    <link href= "../static/coin.css" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>{{coin}}</h1></br></br></br></br></br></br></br>
+        <p style = "text-align:center;" class = "white">Current Price:<span class="green"> ${{currentprice}}</span> </br>
+    
+           24hr Change: 
+                {% if currentchange[0] == "-" %}
+                <span class = "red">{{currentchange}}%</span>
+                {% elif currentchange[0] != "-" %}
+                <span class = "green">{{currentchange}}%</span>
+                {% endif %}</br>
+                Current Rank: {{currentrank}} </br>
+        </p>
+    {% for id in ids %}
+        <div id="{{id}}"></div>
+    {% endfor %}
+
+    <div>
+        <table>
+        <tr>
+            <th style="color:white;" class="leftside"><big>Latest News From Reddit</big></th>
+            <th style="color:white;" class="rightside"><big>Articles From Coindesk</big></th>            
+        </tr>
+    </br>
+            {% for post in list_ %}
+
+            <tr>
+                <td class="leftside"><a href={{post[3]}} class="leftside">{{post[2]}} </a></td>
+                <td class="rightside"><a href={{post[1]}} class="rightside">{{post[0]}}</a></td>
+            </tr>
+            {% endfor %}
+        
+        </table>
+    </div>
+    
+</body>
+
+
+<footer>
+    <!-- D3.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
+
+    <script type="text/javascript">
+        var graphs = {{graphJSON | safe}};
+        var ids = {{ids | safe}};
+        for(var i in graphs) {
+            Plotly.plot(ids[i], // the ID of the div, created above
+                        graphs[i].data,
+                        graphs[i].layout || {});
+        }
+    </script>
+</footer>
+
+</html>

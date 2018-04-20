@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset = "utf-8"/>
+	<link href= "../static/search.css" rel="stylesheet" />
+
+</head>
+<section class="webdesigntuts-workshop">
+	<img src="https://coindigo.io/wp-content/uploads/2018/04/coindigo.jpg" height="150" width="120" align="left"/>
+
+	<form action="/{{coin}}" method="post" target="_self">		    
+		<input type="text" name="coin" placeholder="Enter a Crptocurrency">		    	
+		<button>Search</button>
+
+	</form>
+		<p style="color: #888;font-family: Arial, Helvetica, sans-serif;">
+	{% for _coin_ in coin_names[0:200]  %}
+	<a href = "http://127.0.0.1:5000/{{_coin_}}" class="coins">{{_coin_}}</a> <span style="color:hotpink;">|</span>
+	{% endfor %}
+</p>
+</section>
